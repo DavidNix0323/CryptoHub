@@ -140,25 +140,52 @@ npm install
 Create a `.env.local` file in the root directory and configure the following:
 
 ```env
-# Firebase Configuration (Required)
+# 🔐 Firebase Configuration (Required)
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+# Public API key for Firebase client SDK initialization
+
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+# Domain used for Firebase Authentication redirects and session handling
+
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+# Unique Firebase project identifier used across services
+
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+# Firebase Cloud Storage bucket for uploading and retrieving media assets
+
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+# Sender ID for Firebase Cloud Messaging (FCM), used in push notifications
+
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+# Firebase App ID for client-side SDK registration
 
-# API Keys (Required)
+---
+
+# 📊 API Keys (Required)
 NEXT_PUBLIC_COINGECKO_API_KEY=your_coingecko_api_key
+# Key for accessing CoinGecko's cryptocurrency market data
+
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
+# WalletConnect project ID for enabling multi-wallet support
 
-# Optional API Keys (for enhanced features)
+---
+
+# ⚙️ Optional API Keys (Enhanced Features)
 NEXT_PUBLIC_BINANCE_API_KEY=your_binance_api_key
-NEXT_PUBLIC_DEFILLAMA_API_KEY=your_defillama_api_key
-NEXT_PUBLIC_NEWS_API_KEY=your_news_api_key
+# Key for accessing Binance REST API (used for advanced trading data)
 
-# Application URLs
+NEXT_PUBLIC_DEFILLAMA_API_KEY=your_defillama_api_key
+# Key for querying DeFiLlama protocol metrics and TVL data
+
+NEXT_PUBLIC_NEWS_API_KEY=your_news_api_key
+# Key for fetching crypto-related news articles from NewsAPI
+
+---
+
+# 🌐 Application URLs
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+# Base URL for local development; update to production domain when deploying
+
 ```
 
 ### **3. Run Development Server**
