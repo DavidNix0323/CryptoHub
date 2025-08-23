@@ -15,7 +15,12 @@ declare global {
 }
 
 export const createWagmiConfig = (): ReturnType<typeof createConfig> => {
-  if (process.env.NODE_ENV === "development" && globalThis.__wagmiConfig) {
+  const isDev = process.env.NODE_ENV === "development";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (isDev
+    ? "http://localhost:3000"
+    : "https://crypto-hub-gray.vercel.app");
+
+  if (isDev && globalThis.__wagmiConfig) {
     return globalThis.__wagmiConfig;
   }
 
@@ -30,10 +35,8 @@ export const createWagmiConfig = (): ReturnType<typeof createConfig> => {
         appName: "CryptoPlatform",
         appDescription:
           "Advanced cryptocurrency analytics and portfolio management platform",
-        appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-        appIcon: `${
-          process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-        }/favicon.ico`,
+        appUrl: baseUrl, // ✅ Matches deployed domain in prod
+        appIcon: `${baseUrl}/favicon.ico`,
         chains: [mainnet, polygon, arbitrum, optimism, base, bsc],
         transports: {
           [mainnet.id]: http(),
@@ -46,7 +49,7 @@ export const createWagmiConfig = (): ReturnType<typeof createConfig> => {
       })
     );
 
-    if (process.env.NODE_ENV === "development") {
+    if (isDev) {
       globalThis.__wagmiConfig = wagmiConfigInstance;
     }
 
@@ -54,7 +57,6 @@ export const createWagmiConfig = (): ReturnType<typeof createConfig> => {
   } catch (error) {
     console.warn("WalletConnect initialization warning:", error);
 
-    // ✅ Always return a fallback config to satisfy TypeScript
     return (
       wagmiConfigInstance ||
       globalThis.__wagmiConfig ||
@@ -71,3 +73,4 @@ export const createWagmiConfig = (): ReturnType<typeof createConfig> => {
     );
   }
 };
+
