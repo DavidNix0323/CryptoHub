@@ -24,6 +24,11 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
   onConnect,
   onDisconnect,
 }) => {
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   const { address, isConnected, chain } = useAccount();
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
@@ -47,9 +52,13 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
   };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    // You could add a toast notification here
+    if (hydrated) {
+      navigator.clipboard.writeText(text);
+      // TODO: Add toast notification here
+    }
   };
+
+  if (!hydrated) return null;
 
   if (isConnected && address) {
     return (
